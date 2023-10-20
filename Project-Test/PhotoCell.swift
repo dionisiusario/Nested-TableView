@@ -34,15 +34,18 @@ extension PhotoCell : UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if photos.count == 0 {
       return 0
-    }else{
+    }else {
       return 10
     }
     
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollectionCell", for: indexPath) as! PhotoCollectionCell
     
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollectionCell", for: indexPath) as? PhotoCollectionCell else {
+           return UICollectionViewCell()
+       }
+  
     cell.titlePhotoLabel.text = photos[indexPath.row].title ?? ""
     cell.setupImageView(url: photos[indexPath.row].url ?? "")
     cell.shadowDecorate()

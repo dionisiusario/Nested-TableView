@@ -41,8 +41,10 @@ extension PostCell : UICollectionViewDataSource, UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCollectionCell", for: indexPath) as! PostCollectionCell
-    
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCollectionCell", for: indexPath) as? PostCollectionCell else {
+           return UICollectionViewCell()
+       }
+   
     cell.titleLabel.text = posts[indexPath.row].title ?? ""
     cell.detailLabel.text = posts[indexPath.row].body ?? ""
     

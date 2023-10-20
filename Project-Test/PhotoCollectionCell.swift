@@ -23,11 +23,11 @@ class PhotoCollectionCell: UICollectionViewCell {
   
   func setupImageView(url: String){
     if let imageURL = URL(string: url) {
-        URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+        URLSession.shared.dataTask(with: imageURL) { [weak self] (data, response, error) in
             if let data = data, let image = UIImage(data: data) {
               
                 DispatchQueue.main.async {
-                    self.photoImageView.image = image
+                    self?.photoImageView.image = image
                 }
             } else {
               print(error?.localizedDescription ?? "Error")
